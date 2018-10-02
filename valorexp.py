@@ -34,7 +34,7 @@ class ValorExp:
             return ValorExp(self.val / other, self.inc / other)
 
     def __rtruediv__(self, other):
-        return ValorExp(other / self.val, self.inc)
+        return ValorExp(other / self.val, self.inc * (1 / other))
 
     def __radd__(self, other):
         return ValorExp(other + self.val, self.inc)
