@@ -46,7 +46,7 @@ class ValorExp:
         return ValorExp(other ** self.val, self.inc)
 
     def __rmul__(self, other):
-        return ValorExp(self.val * other, self.inc)
+        return ValorExp(self.val * other, self.inc * other)
 
     def __repr__(self):
         return str(self.val) + ' ± ' + str(self.inc)
