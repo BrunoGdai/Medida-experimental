@@ -1,3 +1,5 @@
+from math import log
+
 class ValorExp:
     def __init__(self, val, inc):
         self.val = val  # valor medido
@@ -34,7 +36,7 @@ class ValorExp:
             return ValorExp(self.val / other, self.inc / other)
 
     def __rtruediv__(self, other):
-        return ValorExp(other / self.val, self.inc)
+        return ValorExp(other / self.val, self.inc * (1 / other))
 
     def __radd__(self, other):
         return ValorExp(other + self.val, self.inc)
@@ -43,7 +45,7 @@ class ValorExp:
         return ValorExp(other - self.val, self.inc)
 
     def __rpow__(self, other):
-        return ValorExp(other ** self.val, self.inc)
+        return ValorExp(other ** self.val, other ** self.val * log(other) * self.inc)
 
     def __rmul__(self, other):
         return ValorExp(self.val * other, self.inc * other)
