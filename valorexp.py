@@ -50,4 +50,4 @@ class ValorExp:
         return other.__mul__(self.__pow__(-1))
 
     def __repr__(self):
-        return str(self.val) + ' +/- ' + str(self.inc)
+        return str(self.val) + ' ± ' + str(self.inc)
