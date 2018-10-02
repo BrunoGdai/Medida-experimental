@@ -12,16 +12,11 @@ class ValorExp:
         else:
             return ValorExp(self.val + other, self.inc)
 
-    __radd__ = __add__
-
     def __sub__(self, other):
         if isinstance(other, ValorExp):
             return ValorExp(self.val - other.val, self.inc + other.inc)
         else:
             return ValorExp(self.val - other, self.inc)
-
-    def __rsub__(self, other):
-        return -self.__sub__(other)
 
     def __mul__(self, other):
         if isinstance(other, ValorExp):
@@ -29,25 +24,29 @@ class ValorExp:
         else:
             return ValorExp(self.val * other, self.inc * other)
 
-    __rmul__ = __mul__
-
     def __pow__(self, n):  # n é real
         return ValorExp(self.val**n, n * self.val ** (n - 1) * self.inc)
 
     def __truediv__(self, other):
         if isinstance(other, ValorExp):
-            if other.val == 0:
-                raise ZeroDivisionError
-            else:
-                return ValorExp(self.val / other.val, (self.inc * other.val + self.val * other.inc) / other.val ** 2)
+            return ValorExp(self.val / other.val, (self.inc * other.val + self.val * other.inc) / other.val ** 2)
         else:
-            if other == 0:
-                raise ZeroDivisionError
-            else:
-                return ValorExp(self.val / other, self.inc / other)
+            return ValorExp(self.val / other, self.inc / other)
 
     def __rtruediv__(self, other):
-        return other.__mul__(self.__pow__(-1))
+        return ValorExp(other / self.val, self.inc)
+
+    def __radd__(self, other):
+        return ValorExp(other + self.val, self.inc)
+
+    def __rsub__(self, other):
+        return ValorExp(other - self.val, self.inc)
+
+    def __rpow__(self, other):
+        return ValorExp(other ** self.val, self.inc)
+
+    def __rmul__(self, other):
+        return ValorExp(self.val * other, self.inc * other)
 
     def __repr__(self):
-        return str(self.val) + ' +/- ' + str(self.inc)
+        return str(self.val) + ' ± ' + str(self.inc)
